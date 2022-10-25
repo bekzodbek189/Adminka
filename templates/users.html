@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+      <main class="content">
+        <div class="container-fluid p-0">
+          <div class="row">
+            <div class="col-12 col-lg-6 col-xl-12 d-flex">
+              <div class="card flex-fill">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">All users</h5>
+                </div>
+                <table id="datatables-dashboard-projects" class="table table-striped my-0">
+                  <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th class="d-none d-xl-table-cell">Date joined</th>
+                        <th class="d-none d-xl-table-cell">Email</th>
+
+                        <th class="d-none d-md-table-cell">Number</th>
+                    </tr>
+                    </thead>
+                  <tbody>
+                    {%for i in users%}
+                    <tr>
+                      <td class="d-none d-xl-table-cell"><a href="#" style="text-decoration: None; color: black">{{i.username}}</a></td>
+                      <td class="d-none d-xl-table-cell">{{i.date_joined}}</td>
+                      <td>{{i.email}}</td>
+                      <td class="d-none d-md-table-cell">{{i.number}}</td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
