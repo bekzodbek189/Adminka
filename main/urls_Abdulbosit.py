@@ -2,5 +2,32 @@ from django.urls import path
 from .views_Abdulbosit import *
 
 urlpatterns = [
-
+    path("blank/", Pages_blank, name="blank"),
+    path("sing_in/", Pages_sing_in, name="sing_in"),
+    path("change/", Change, name="change"),
+    path("sale_buy/", Sale_Buy, name="sale_buy"),
+    path("regulations/", Regulations, name="regulations"),
+    path("privacy_policy/", Privacy_policy, name="privacy_policy"),
+    path("themes/", Themes, name="themes"),
+    path("about/", Create_About, name="about"),
+    path("information/", Create_information, name="information"),
+    path("sing_up/", Sing_up, name="sing_up"),
+    path("users/", Users, name="users"),
+    path("search/", Search, name="search"),
+    path("accepted/<int:pk>/", Accepted, name="accepted"),
+    path("rejected/<int:pk>/", Rejected, name="rejected"),
+    path("page_accepted/", Page_accepted, name="page_accepted"),
+    path("page_rejected/", Page_rejected, name="page_rejected"),
+    path("is_top/<int:pk>/", Is_top, name="is_top"),
+    path("is_recommended/<int:pk>/", Is_recommended, name="is_recommended"),
+    path("page_is_recommended/", Page_is_recommended, name="page_is_recommended"),
+    path("page_is_top/", Page_is_top, name="page_is_top"),
+    path("reklama/", Page_reklama, name="reklama"),
+    path("about/", Page_about, name="about"),
+    path("information/", Page_information, name="information"),
+    path("delete_reklema/<int:pk>/", Delete_Reklama, name="delete_reklema"),
+    path("change_reklama/<int:pk>/", Change_Reklama, name="change_reklama"),
+    path("page_change_reklama/<int:pk>/", Page_Change_Reklama, name="page_change_reklama"),
+    path("add_reklama/", Add_reklama, name="add_reklama"),
+    path("page_add_reklama/", Page_Add_Reklama, name="page_add_reklama"),
 ]

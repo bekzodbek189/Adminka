@@ -82,6 +82,10 @@ class privacy_policy(models.Model):
 class Reklama(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
+    img = models.ImageField(upload_to="Reklama/")
+    link = models.URLField()
+    date = models.DateField(auto_now_add=True)
+    status = models.IntegerField(default=1, choices=((1, "in work"), (2, "deleted")))
 
 
 class About(models.Model):

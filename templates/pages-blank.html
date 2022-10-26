@@ -1,56 +1,91 @@
 ﻿{% extends 'base.html' %}
-			<main class="content">
-				<div class="container-fluid p-0">
+{% block content %}
 
-					<h1 class="h3 mb-3">Blank Page</h1>
+<main class="content">
+	<div class="container-fluid p-0">
 
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Empty card</h5>
-								</div>
-								<div class="card-body">
-								</div>
-							</div>
-						</div>
+		<h1 class="h3 mb-3">Blank Page</h1>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<table id="datatables-dashboard-projects" class="table table-striped my-0">
+						  <thead>
+							<tr>
+								<th>Name</th>
+								<th class="d-none d-xl-table-cell">Date joined</th>
+								<th class="d-none d-xl-table-cell">Photo</th>
+								<th class="d-none d-md-table-cell">Recommended</th>
+								<th class="d-none d-md-table-cell">Top</th>
+								<th class="d-none d-md-table-cell">Accepted</th>
+								<th class="d-none d-md-table-cell">Rejected</th>
+							</tr>
+							</thead>
+						  <tbody>
+							{%for i in ads%}
+							<tr>
+								<td class="d-none d-xl-table-cell">{{i.name}}</td>
+								<td class="d-none d-xl-table-cell">{{i.date}}</td>
+								<td class="d-none d-xl-table-cell"><img width="50" src="{{ i.photo.first.photo.url }}" alt="rasm"></td>
+								{% if i.is_recommended == True %}
+								<td class="d-none d-xl-table-cell">
+									<a href="{% url 'is_recommended' i.id %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+									    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+									    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+										</svg>
+									</a>
+								</td>
+								{% else %}
+								<td class="d-none d-xl-table-cell">
+									<a href="{% url 'is_recommended' i.id %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+										  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+										</svg>
+									</a>
+								</td>
+								{% endif %}
+								{% if i.is_top == True %}
+								<td class="d-none d-xl-table-cell">
+									<a href="{% url 'is_top' i.id %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+										  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+										  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+										</svg>
+									</a>
+								</td>
+								{% else %}
+								<td class="d-none d-xl-table-cell">
+									<a href="{% url 'is_top' i.id %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+										  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+										</svg>
+									</a>
+								</td>
+								{% endif %}
+								{% if i.status == 2 %}
+								<td class="d-none d-md-table-cell"><button disabled class="btn btn-info"><a href="{% url 'accepted' i.id %}" style="text-decoration: None; color: white">Accepted</a></button></td>
+								{% else %}
+								<td class="d-none d-md-table-cell"><button class="btn btn-info"><a href="{% url 'accepted' i.id %}" style="text-decoration: None; color: white">Accepted</a></button></td>
+								{% endif %}
+								{% if i.status == 3 %}
+								<td class="d-none d-xl-table-cell"><button disabled class="btn btn-danger"><a href="{% url 'rejected' i.id %}" style="text-decoration: None; color: white">Rejected</a></button></td>
+								{% else %}
+								<td class="d-none d-xl-table-cell"><button class="btn btn-danger"><a href="{% url 'rejected' i.id %}" style="text-decoration: None; color: white">Rejected</a></button></td>
+								{% endif %}
+							</tr>
+							{%endfor%}
+						  </tbody>
+						</table>
 					</div>
-
-				</div>
-			</main>
-
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-left">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="#">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="#">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="#">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="#">Terms of Service</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-6 text-right">
-							<p class="mb-0">
-								&copy; 2019 - <a href="index.html" class="text-muted">AppStack</a>
-							</p>
-						</div>
+					<div class="card-body">
 					</div>
 				</div>
-			</footer>
+			</div>
 		</div>
+
 	</div>
+</main>
 
-	<script src="js\app.js"></script>
-
-</body>
-
-</html>
+{% endblock %}
