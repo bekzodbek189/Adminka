@@ -3,6 +3,9 @@ from django.contrib.auth import login, logout, authenticate
 from .models import *
 from django.contrib.auth.decorators import login_required
 
+
+
+@login_required(login_url='sign-in')
 def Sing_up(requset):
     if requset.method == 'POST':
         username = requset.POST['username']
@@ -16,23 +19,25 @@ def Sing_up(requset):
 
 
 def Sing_in(request):
-    if request.method =='POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        users = User.objects.filter(username=username)
-        if users is not None:
-            usr = authenticate(username=username, password=password)
-            if usr is not None:
-                login(request, usr)
-                return redirect('dashboart')
+    user = request.user
+    if user.status == 1:
+        if request.method =='POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            users = User.objects.filter(username=username)
+            if users is not None:
+                usr = authenticate(username=username, password=password)
+                if usr is not None:
+                    login(request, usr)
+                    return redirect('dashboart')
+                else:
+                    return redirect('sign-up')
             else:
                 return redirect('sign-up')
-        else:
-            return redirect('sign-up')
     return render(request, 'pages-sign-in.html')
+    
 
-
-
+@login_required(login_url='sign-in')
 def Logout(request):
     logout(request)
     return redirect('sign-in')
@@ -40,8 +45,12 @@ def Logout(request):
 
 @login_required(login_url='sign-in')
 def Dashboart(request):
-    return render(request, 'dashboard.html')
+    user = request.user
+    if user.status == 1:
+        return render(request, 'dashboard.html')
+    return redirect("sign-in")
 
+@login_required(login_url='sign-in')
 def UpdateUser(request):
     user = request.user
     if user.status == 1:
@@ -62,7 +71,7 @@ def UpdateUser(request):
             return render(request, "pages-update.html")
     return redirect('sign-in')
 
-
+@login_required(login_url='sign-in')
 def Profile(request):
     user = request.user
     con = {
