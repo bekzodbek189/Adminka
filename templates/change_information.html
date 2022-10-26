@@ -15,23 +15,19 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="m-sm-4">
-                        <form action="{% url 'change_reklama' pk %}" method="post" enctype="multipart/form-data">
+                        <form action="{% url 'change_info' pk %}" method="post" enctype="multipart/form-data">
                           {% csrf_token %}
                           <div class="form-group">
                             <label>Title</label>
-                            <input class="form-control form-control-lg" type="text" name="title" placeholder="Enter title">
+                            <input class="form-control form-control-lg" type="text" name="company_name" placeholder="Enter company_name">
                           </div>
                           <div class="form-group">
                             <label>Text</label>
-                            <input class="form-control form-control-lg" type="text" name="text" placeholder="Enter Text">
+                            <input class="form-control form-control-lg" type="text" name="description" placeholder="Enter description">
                           </div>
                           <div class="form-group">
                             <label>Img</label>
-                            <input class="form-control form-control-lg" type="file" name="img">
-                          </div>
-                          <div class="form-group">
-                            <label>Link</label>
-                            <input class="form-control form-control-lg" type="url" name="link" placeholder="Enter link">
+                            <input class="form-control form-control-lg" type="file" name="logo">
                           </div>
                           <div class="text-center mt-3">
                             <button type="submit" class="btn btn-lg btn-primary">Change</button>
