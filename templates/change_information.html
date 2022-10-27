@@ -2,20 +2,14 @@
 {% block content %}
 
 <div class="pl-5 pr-5">
-  <div class="pl-5 pr-5">
-    <div class="pl-5 pr-5">
-      <div class="pl-5 pr-5">
-        <div class="pl-5 pr-5">
-        <div class="pl-5 pr-5">
-        <div class="pl-5 pr-5">
-          <div class="pt-5 pl-5 pr-5">
+      <div class="pt-5 pl-5 pr-5">
             <div class="pl-5 pr-5">
               <div class="pl-5 pr-5">
                 <div class="pl-5 pr-5">
                   <div class="card">
                     <div class="card-body">
                       <div class="m-sm-4">
-                        <form action="{% url 'change_info' pk %}" method="post" enctype="multipart/form-data">
+                        <form action="{% url 'change_info' info.id %}" method="post" enctype="multipart/form-data">
                           {% csrf_token %}
                           <div class="form-group">
                             <label>company</label>
@@ -39,13 +33,6 @@
               </div>
               </div>
               </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 

@@ -2,27 +2,30 @@
 {% block content %}
 
 <div class="pl-5 pr-5">
+      <div class="pt-5 pl-5 pr-5">
             <div class="pl-5 pr-5">
+              <div class="pl-5 pr-5">
                 <div class="pl-5 pr-5">
                   <div class="card">
                     <div class="card-body">
                       <div class="m-sm-4">
-                        <form action="{% url 'add_reg' %}" method="post" enctype="multipart/form-data">
+                        <form action="{% url 'change_reg' reg.id %}" method="post" enctype="multipart/form-data">
                           {% csrf_token %}
                           <div class="form-group">
                             <label>Regionname</label>
-                            <input class="form-control form-control-lg" type="text" name="name" placeholder="Enter company_name">
+                            <input class="form-control form-control-lg" type="text" name="name" placeholder="Enter your region">
                           </div>
-                          <button type="submit" class="btn btn-lg btn-primary">Add</button>
-                          </div>
+                          <button type="submit" class="btn btn-lg btn-primary">Change</button>
                         </form>
                       </div>
                     </div>
                   </div>
               </div>
               </div>
-           </div>
-        </div>
+              </div>
+</div>
+
+
 
 {% endblock content %}
 
