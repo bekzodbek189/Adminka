@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def information(request):
-    info = Information.objects.last()
+    info = Information.objects.order_by('-id')
     return render(request, 'information.html', {'info': info})
 
 
@@ -13,7 +13,7 @@ def information(request):
 def Add_info(request):
     user = request.user
     if user.status == 1:
-        logo = request.FILES['img']
+        logo = request.FILES['logo']
         company_name = request.POST['company_name']
         description = request.POST['description']
         Information.objects.create(company_name=company_name, logo=logo, description=description)
@@ -28,7 +28,7 @@ def change_info(request, pk):
     info = Information.objects.get(id=pk)
 
     if user.status == 1:
-        logo = request.FILES['img']
+        logo = request.FILES['logo']
         company_name = request.POST['company_name']
         description = request.POST['description']
         info.logo = logo
@@ -40,7 +40,7 @@ def change_info(request, pk):
 
 
 @login_required(login_url="sign_in")
-def Delete_Reklama(request, pk):
+def delete_info(request, pk):
     user = request.user
     if user.status == 1:
         info = Information.objects.get(id=pk)
