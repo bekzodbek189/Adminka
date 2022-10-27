@@ -24,7 +24,7 @@ def Add_info(request):
 
 
 
-
+@login_required(login_url="sign_in")
 def change_info(request, pk):
     user = request.user
     info = Information.objects.get(id=pk)
@@ -72,7 +72,7 @@ def add_reg(request):
 
 
 
-
+@login_required(login_url="sign_in")
 def change_reg(request, pk):
     user = request.user
     reg = Region.objects.get(id=pk)
