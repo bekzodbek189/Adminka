@@ -23,21 +23,12 @@ class UserAdmin(UserAdmin):
         (_("EXTRA"), {"fields": ("status",)}),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-
+admin.site.register(District)
 admin.site.register(Information)
 admin.site.register(AdImage)
 admin.site.register(Category)
 admin.site.register(Region)
 admin.site.register(Subcategory)
 admin.site.register(Ads)
-admin.site.register(how_to_sale_and_buy)
-admin.site.register(safety_regulations)
-admin.site.register(Theme)
-admin.site.register(Feedback)
-admin.site.register(privacy_policy)
 admin.site.register(Reklama)
 admin.site.register(About)
-
-
-
-

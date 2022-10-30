@@ -3,61 +3,6 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="sign_in")
-def Sale_Buy(request):
-    """ This View to add or change to who understand sale or buy """
-    user = request.user
-    if user.status == 1:
-        if request.method == "POST":
-            text = request.POST.get("text")
-            how_to_sale_and_buy.objects.create(txt=text)
-            return redirect("change")
-        elif request.method == 'GET':
-            text = request.GET.get("text")
-            a = how_to_sale_and_buy.objects.last()
-            a.txt = text
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
-    return redirect('pages-404.html')
-
-@login_required(login_url="sign_in")
-def Regulations(request):
-    user = request.user
-    if user.status == 1:
-        if request.method == "POST":
-            text = request.POST.get("text")
-            safety_regulations.objects.create(text=text)
-            return redirect("change")
-        elif request.method == 'GET':
-            text = request.GET.get("text")
-            a = safety_regulations.objects.last()
-            a.text = text
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
-    return redirect('pages-404.html')
-
-@login_required(login_url="sign_in")
-def Privacy_policy(request):
-    user = request.user
-    if user.status == 1:
-        if request.method == "POST":
-            text = request.POST.get("text")
-            privacy_policy.objects.create(txt=text)
-            return redirect("change")
-        elif request.method == 'GET':
-            text = request.GET.get("text")
-            a = privacy_policy.objects.last()
-            a.txt = text
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
-    return redirect('pages-404.html')
-
-@login_required(login_url="sign_in")
 def Themes(request):
     user = request.user
     if user.status == 1:
@@ -81,20 +26,11 @@ def Create_About(request):
     user = request.user
     if user.status == 1:
         if request.method == "POST":
-            text = request.POST.get("text")
-            logo = request.POST.get("logo")
+            text = request.POST.get("title")
+            logo = request.FILES.get("logo")
             About.objects.create(txt=text, logo=logo)
-            return redirect("change")
-        elif request.method == 'GET':
-            text = request.GET.get("text")
-            logo = request.GET.get("logo")
-            a = About.objects.last()
-            a.txt = text
-            a.logo = logo
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
+            return redirect("page_about")
+        return render(request, "add_about.html")
     return redirect('pages-404.html')
 
 def Sing_up(requset):
@@ -116,19 +52,11 @@ def Pages_blank(request):
             "ads": Ads.objects.filter(status=1)
         }
         return render(request, "pages-blank.html", context)
-    return redirect('sing_in')
+    return redirect('pages-404.html')
 
 def Pages_sing_in(request):
     """ Go to page Sign in """
     return render(request, "pages-sign-in.html")
-
-@login_required(login_url="sign_in")
-def Change(request):
-    """ Go to page Change """
-    user = request.user
-    if user.status == 1:
-        return render(request, "changes.html")
-    return redirect('sign_in')
 
 @login_required(login_url="sign_in")
 def Users(request):
@@ -139,8 +67,7 @@ def Users(request):
             "users": User.objects.filter(status=2)
         }
         return render(request, "users.html", context)
-    return redirect('sign_in')
-
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Search(request):
@@ -152,37 +79,6 @@ def Search(request):
             "users": User.objects.filter(username__icontains=name, status=2)
         }
         return render(request, "users.html", context)
-    return redirect('sign_in')
-
-@login_required(login_url="sign_in")
-def Create_information(request):
-    """ Create information a lot """
-    user = request.user
-    if user.status == 1:
-        if request.method == "POST":
-            company_name = request.POST["company_name"]
-            logo = request.FILES["logo"]
-            description = request.POST["description"]
-            googleplay = request.POST["googleplay"]
-            appstore = request.POST["appstore"]
-            Information.objects.create(company_name=company_name, logo=logo, description=description, googleplay=googleplay, appstore=appstore)
-            return redirect('change')
-        elif request.method == 'GET':
-            company_name = request.GET["company_name"]
-            logo = request.FILES["logo"]
-            description = request.GET["description"]
-            googleplay = request.GET["googleplay"]
-            appstore = request.GET["appstore"]
-            a = Information.objects.last()
-            a.company_name = company_name
-            a.logo = logo
-            a.description = description
-            a.googleplay = googleplay
-            a.appstore = appstore
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
     return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
@@ -194,7 +90,7 @@ def Accepted(request, pk):
         ads.status = 2
         ads.save()
         return redirect('blank')
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Rejected(request, pk):
@@ -205,7 +101,7 @@ def Rejected(request, pk):
         ads.status = 3
         ads.save()
         return redirect('blank')
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Page_accepted(request):
@@ -216,7 +112,7 @@ def Page_accepted(request):
             "ads": Ads.objects.filter(status=2)
         }
         return render(request, "pages-blank.html", context)
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Page_rejected(request):
@@ -227,7 +123,7 @@ def Page_rejected(request):
             "ads": Ads.objects.filter(status=3)
         }
         return render(request, "pages-blank.html", context)
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Is_top(request, pk):
@@ -241,7 +137,7 @@ def Is_top(request, pk):
             top.is_top = True
         top.save()
         return redirect('dashboard')
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Is_recommended(request, pk):
@@ -254,14 +150,14 @@ def Is_recommended(request, pk):
             recommended.is_recommended = True
         recommended.save()
         return redirect('dashboard')
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Page_is_top(request):
     user = request.user
     if user.status == 1:
         return render(request, "pages-blank.html", {"ads": Ads.objects.filter(is_top=True)})
-    return redirect('sign_in')
+    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Page_is_recommended(request):
@@ -298,7 +194,7 @@ def Change_Reklama(request, pk):
         reklama.link = link
         reklama.save()
         return redirect('reklama')
-    return redirect('sign-in')
+    return redirect('sign_in')
 
 @login_required(login_url="sign_in")
 def Delete_Reklama(request, pk):
@@ -308,7 +204,7 @@ def Delete_Reklama(request, pk):
         reklama.status = 2
         reklama.save()
         return redirect('reklama')
-    return redirect('sign-in')
+    return redirect('sign_in')
 
 @login_required(login_url="sign_in")
 def Page_Change_Reklama(request, pk):
@@ -334,14 +230,14 @@ def Add_reklama(request):
         link = request.POST['link']
         Reklama.objects.create(title=title, text=text, link=link, img=img)
         return redirect('reklama')
-    return redirect('sign-in')
+    return redirect('sign_in')
 
 @login_required(login_url="sign_in")
 def Page_about(request):
     user = request.user
     if user.status == 1:
         context = {
-            "adout": About.objects.last()
+            "about": About.objects.last()
         }
         return render(request, 'about.html', context)
     return redirect('sign-in')
@@ -354,4 +250,91 @@ def Page_information(request):
             "info": Information.objects.last()
         }
         return render(request, 'information.html', context)
-    return redirect('sign-in')
+    return redirect('pages-404.html')
+
+def Delete_about(request, pk):
+    a = About.objects.get(id=pk)
+    a.status = 2
+    a.save()
+    return redirect('page_about')
+
+def Page_category(request):
+    return render(request, "category.html", {"category": Category.objects.filter(status=1)})
+
+def Change_category(request, pk):
+    if request.method == "POST":
+        name = request.POST['name']
+        img = request.FILES['img']
+        a = Category.objects.get(id=pk)
+        a.name = name
+        a.photo = img
+        a.save()
+        return redirect('page_category')
+    context = {
+        "pk": pk
+    }
+    return render(request, "change_category.html", context)
+
+def Create_category(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        img = request.FILES['img']
+        Category.objects.create(name=name, photo=img)
+        return redirect('page_category')
+    return redirect('page_category')
+
+def Delete_category(request, pk):
+    category = Category.objects.get(id=pk)
+    category.status = 2
+    category.save()
+    return redirect('page_category')
+
+@login_required(login_url="sign_in")
+def Create_information(request):
+    """ Create information a lot """
+    user = request.user
+    if user.status == 1:
+        if request.method == "POST":
+            company_name = request.POST["company_name"]
+            logo = request.FILES["logo"]
+            description = request.POST["description"]
+            googleplay = request.POST["googleplay"]
+            appstore = request.POST["appstore"]
+            Information.objects.create(company_name=company_name, logo=logo, description=description, googleplay=googleplay, appstore=appstore)
+            return redirect('information')
+        return render(request, "ad_information.html")
+    return redirect('pages-404.html')
+
+def Change_information(request, pk):
+    if request.method == "POST":
+        company_name = request.POST["company_name"]
+        logo = request.FILES["logo"]
+        description = request.POST["description"]
+        googleplay = request.POST["googleplay"]
+        appstore = request.POST["appstore"]
+        info = Information.objects.get(id=pk)
+        info.company_name = company_name
+        info.logo = logo
+        info.description = description
+        info.googleplay = googleplay
+        info.appstore = appstore
+        info.save()
+        return redirect('information')
+    return render(request, "change_information.html", {"pk": pk})
+
+def Delete_information(request, pk):
+    info = Information.objects.get(id=pk)
+    info.status = 2
+    info.save()
+    return redirect('information')
+
+def Change_about(request, pk):
+    if request.method == "POST":
+        text = request.POST["text"]
+        logo = request.FILES["logo"]
+        about = About.objects.get(id=pk)
+        about.txt = text
+        about.logo = logo
+        about.save()
+        return redirect("page_about")
+    return render(request, "change_about.html", {"pk": pk})

@@ -19,7 +19,7 @@ class Information(models.Model):
     description = models.TextField()
     googleplay = models.CharField(max_length=255)
     appstore = models.CharField(max_length=255)
-
+    status = models.IntegerField(choices=((1, "in work"), (2, "delete")), default=1)
 
 class AdImage(models.Model):
     photo = models.ImageField()
@@ -28,17 +28,32 @@ class AdImage(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=255)
     photo = models.ImageField()
-
+    status = models.IntegerField(default=1, choices=((1, "in work"), (2, "delete")))
 
 class District(models.Model):
-    name = models.CharField(max_length=255, null=True)
-
+    Status = (
+        (1, 'in working'),
+        (2, 'delete')
+    )
+    status = models.SmallIntegerField(choices=Status, default=1, null=True, blank=True)
+    name = models.CharField(max_length=255)
 
 class Region(models.Model):
+    Status = (
+        (1, 'in working'),
+        (2, 'delete'),
+    )
+    status = models.SmallIntegerField(choices=Status, default=1, null=True, blank=True)
     name = models.CharField(max_length=255)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
+    district = models.ManyToManyField(District)
+
 
 class Subcategory(models.Model):
+    Status = (
+        (1, 'in working'),
+        (2, 'delete')
+    )
+    status = models.SmallIntegerField(choices=Status, default=1, null=True, blank=True)
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
@@ -61,26 +76,7 @@ class Ads(models.Model):
     is_top = models.BooleanField(default=False)
     is_recommended = models.BooleanField(default=True)
 
-class how_to_sale_and_buy(models.Model):
-    txt = models.TextField()
 
-
-class safety_regulations(models.Model):
-    text = models.TextField()
-
-class Theme(models.Model):
-    theme= models.CharField(max_length=255)
-
-
-class Feedback(models.Model):
-    theme = models.ForeignKey(Theme, on_delete=models.CASCADE)
-    message = models.TextField()
-    phone = models.BigIntegerField()
-    email = models.EmailField()
-    attach = models.FileField(null=True, blank=True)
-
-class privacy_policy(models.Model):
-    txt = models.TextField()
 
 
 class Reklama(models.Model):
@@ -95,3 +91,4 @@ class Reklama(models.Model):
 class About(models.Model):
     logo = models.ImageField(upload_to='logo/')
     txt = models.TextField()
+    status = models.IntegerField(default=1, choices=((1, "in work"), (2, "deleted")))

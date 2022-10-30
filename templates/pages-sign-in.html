@@ -52,27 +52,17 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<form action="{% url 'sign-in'%}" method="post">
+									<form action="{% url 'sign_in'%}" method="post">
 										{% csrf_token %}
 										<div class="form-group">
 											<label>Username</label>
 											<input class="form-control form-control-lg" type="text" name="username" placeholder="Enter your username">
-											<small>
-												<a href="pages-reset-password.html">Forgot password?</a>
-											  </small>
 										</div>
 										<div class="form-group">
 											<label>Password</label>
 											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password">
-											<small>
-												<a href="pages-reset-password.html">Forgot password?</a>
-											  </small>
 										</div>
 										<div>
-											<div class="custom-control custom-checkbox align-items-center">
-												<input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me" checked="">
-												<label class="custom-control-label text-small">Remember me next time</label>
-											</div>
 										</div>
 										<div class="text-center mt-3">
 											<button type="submit" class="btn btn-lg btn-primary">Sign in</button>
