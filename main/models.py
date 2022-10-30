@@ -30,9 +30,13 @@ class Category(models.Model):
     photo = models.ImageField()
 
 
+class District(models.Model):
+    name = models.CharField(max_length=255, null=True)
+
+
 class Region(models.Model):
     name = models.CharField(max_length=255)
-
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
 
 class Subcategory(models.Model):
     name = models.CharField(max_length=255)
