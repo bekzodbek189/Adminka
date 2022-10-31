@@ -1,41 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="pl-5 pr-5">
-      <div class="pt-5 pl-5 pr-5">
-            <div class="pl-5 pr-5">
-              <div class="pl-5 pr-5">
-                <div class="pl-5 pr-5">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="m-sm-4">
-                        <form action="{% url 'change_info' info.id %}" method="post" enctype="multipart/form-data">
-                          {% csrf_token %}
-                          <div class="form-group">
-                            <label>company</label>
-                            <input class="form-control form-control-lg" type="text" value="" name="company_name" placeholder="Enter company_name">
-                          </div>
-                          <div class="form-group">
-                            <label>description</label>
-                            <input class="form-control form-control-lg" type="text" name="description" placeholder="Enter description">
-                          </div>
-                          <div class="form-group">
-                            <label>Logo</label>
-                            <input class="form-control form-control-lg" type="file" name="logo">
-                          </div>
-                          <div class="text-center mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary">Change</button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-              </div>
-              </div>
+<div class="pt-5" style="display: flex; justify-content: center">
+  <div class="card" style="width: 550px">
+    <div class="card-body">
+      <div class="m-sm-4">
+        <form action="{% url 'change_information' pk %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label>company</label>
+            <input class="form-control form-control-lg" type="text" value="" name="company_name" placeholder="Enter company_name">
+          </div>
+          <div class="form-group">
+            <label>description</label>
+            <input class="form-control form-control-lg" type="text" name="description" placeholder="Enter description">
+          </div>
+          <div class="form-group">
+            <label>Logo</label>
+            <input class="form-control form-control-lg" type="file" name="logo">
+          </div>
+          <div class="form-group">
+            <label>Google play</label>
+            <input class="form-control form-control-lg" type="url" name="googleplay" placeholder="Enter google play url">
+          </div>
+          <div class="form-group">
+            <label>AppStore</label>
+            <input class="form-control form-control-lg" type="url" name="appstore" placeholder="Enter appstore url">
+          </div>
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-lg btn-primary">Change</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-
 
 {% endblock content %}
 

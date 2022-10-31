@@ -24,34 +24,9 @@ class ReklamaView(ReadOnlyModelViewSet):
     serializer_class = ReklamaSerializer
 
 
-
-class Privacy_policyView(ReadOnlyModelViewSet):
-    queryset = privacy_policy.objects.all()
-    serializer_class = privacy_policySerializer
-
-
-
-class ThemeView(ReadOnlyModelViewSet):
-    queryset = Theme.objects.all()
-    serializer_class = ThemeSerializer
-
-
-
-class Safety_regulationsView(ReadOnlyModelViewSet):
-    queryset = safety_regulations.objects.all()
-    serializer_class = safety_regulationsSerializer
-
-
-
-class How_to_sale_and_buyView(ReadOnlyModelViewSet):
-    queryset = how_to_sale_and_buy.objects.all()
-    serializer_class = how_to_sale_and_buySerializer
-
-
 class AdsView(generics.ListCreateAPIView):
     queryset = Ads.objects.all()
     safety_regulations = AdsSerializer
-
 
 
 class AdsChangeView(generics.RetrieveUpdateDestroyAPIView):

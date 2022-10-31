@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br>
+
+<div style="display: flex; justify-content: center">
+    <form action="{% url 'change_category' pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" placeholder="Enter region name...">
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+              <label>Img</label>
+              <input type="file" name="img">
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="form-group">
+              <button class="btn btn-info" type="submit">ADD</button>
+            </div>
+      </div>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
