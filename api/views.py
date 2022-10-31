@@ -1,5 +1,8 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.response import Response
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+
 from main.models import *
 from .serializers import *
 
@@ -44,4 +47,25 @@ class How_to_sale_and_buyView(ReadOnlyModelViewSet):
     queryset = how_to_sale_and_buy.objects.all()
     serializer_class = how_to_sale_and_buySerializer
 
+
+class AdsView(generics.ListCreateAPIView):
+    queryset = Ads.objects.all()
+    safety_regulations = AdsSerializer
+
+
+
+class AdsChangeView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ads.objects.all()
+    safety_regulations = AdsSerializer
+
+
+class AdsImageView(generics.ListCreateAPIView):
+    queryset = AdImage.objects.all()
+    safety_regulations = AddimageSerializer
+
+
+
+class AdsImageChangeView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AdImage.objects.all()
+    safety_regulations = AddimageSerializer
 

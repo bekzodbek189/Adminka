@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views_Sardor import *
 
 urlpatterns = [
@@ -9,6 +9,6 @@ urlpatterns = [
     path('region/', region, name='region'),
     path('add_reg/', add_reg, name='add_reg'),
     path('delete_reg/<int:pk>/', delete_reg, name='delete_reg'),
-    path('change_reg/<int:pk>/', change_reg, name='change_reg')
+    path('change_reg/<int:pk>/', change_reg, name='change_reg'),
 
 ]
