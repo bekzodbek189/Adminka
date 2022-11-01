@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'drf_yasg',
+    'django_filters',
 
 ]
 
@@ -55,6 +56,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'olx.urls'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 TEMPLATES = [
     {

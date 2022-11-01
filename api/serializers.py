@@ -50,35 +50,6 @@ class AdsSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class how_to_sale_and_buySerializer(ModelSerializer):
-    class Meta:
-        model = how_to_sale_and_buy
-        fields = "__all__"
-
-
-class safety_regulationsSerializer(ModelSerializer):
-    class Meta:
-        model = safety_regulations
-        fields = "__all__"
-
-
-class ThemeSerializer(ModelSerializer):
-    class Meta:
-        model = Theme
-        fields = "__all__"
-
-
-class FeedbackSerializer(ModelSerializer):
-    class Meta:
-        model = Feedback
-        fields = "__all__"
-
-
-class privacy_policySerializer(ModelSerializer):
-    class Meta:
-        model = privacy_policy
-        fields = "__all__"
-
 
 class ReklamaSerializer(ModelSerializer):
     class Meta:

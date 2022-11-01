@@ -2,6 +2,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
+import django_filters.rest_framework
 
 from main.models import *
 from .serializers import *
@@ -23,24 +24,4 @@ class ReklamaView(ReadOnlyModelViewSet):
     queryset = Reklama.objects.all()
     serializer_class = ReklamaSerializer
 
-
-class AdsView(generics.ListCreateAPIView):
-    queryset = Ads.objects.all()
-    safety_regulations = AdsSerializer
-
-
-class AdsChangeView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Ads.objects.all()
-    safety_regulations = AdsSerializer
-
-
-class AdsImageView(generics.ListCreateAPIView):
-    queryset = AdImage.objects.all()
-    safety_regulations = AddimageSerializer
-
-
-
-class AdsImageChangeView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = AdImage.objects.all()
-    safety_regulations = AddimageSerializer
 
