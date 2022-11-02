@@ -1,6 +1,5 @@
 from django.urls import path
 from .views_Abdulbosit import *
-from api.viewset import *
 
 urlpatterns = [
     path("blank/", Pages_blank, name="blank"),
@@ -33,10 +32,5 @@ urlpatterns = [
     path("delete_category/<int:pk>/", Delete_category, name="delete_category"),
     path("delete_information/<int:pk>/", Delete_information, name="delete_information"),
     path("change_information/<int:pk>/", Change_information, name="change_information"),
-    path("change_about/<int:pk>/", Change_about, name="change_about"),
-    path("user_ads/<int:pk>/", Ads_user),
-    path("info/", InformationView.as_view({'get': 'list'})),
-    path("user/", UserView.as_view()),
-    path("add_ads/", Add_ads.as_view()),
-    path("users_ads/", Users_ads),
+    path("change_about/<int:pk>/", Change_about, name="change_about")
 ]
