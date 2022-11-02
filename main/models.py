@@ -22,6 +22,7 @@ class Information(models.Model):
     status = models.IntegerField(choices=((1, "in work"), (2, "delete")), default=1)
 
 class AdImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = models.ImageField()
 
 

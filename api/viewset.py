@@ -1,9 +1,10 @@
+import datetime
+
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from rest_framework import generics
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -41,10 +42,28 @@ class UserView(APIView):
         return Response(UserSerializer(User.objects.filter(username__icontains=user), many=True).data)
 
 
-class Add_ads(generics.CreateAPIView):
-    queryset = Ads.objects.all()
-    serializer_class = AdsSerializer
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
+def Add_img(request):
+    img = request.FILES('img')
+    user = request.user
+    AdImage.objects.create(user_id=user.id, photo=img)
+    return Response("Done")
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
+def Add_ads(request):
+    user = request.user
+    region = request.POST['region']
+    category = request.POST['category']
+    photo = request.POST.getlist['photo']
+    name = request.POST['name']
+    description = request.POST['description']
+    price = request.POST['price']
+    Ads.objects.create(owner_id=user.id, region=region, category=category, photo=photo, name=name, date=datetime.datetime.now(), description=description, price=price)
+    return Response("Done")
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

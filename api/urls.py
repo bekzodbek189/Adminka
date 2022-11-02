@@ -10,10 +10,6 @@ urlpatterns = [
     path('about/', AboutView.as_view({'get':'list'})),
     path('reklama/', ReklamaView.as_view({'get':'list'})),
     path('info/', InformationView.as_view({'get':'list'})),
-]
-
-# API urls
-urlpatterns = [
     path('sold_ads/<int:pk>/', sold_ads),
     path('register_user/', Register_user),
     path('login_user/', Login_user),

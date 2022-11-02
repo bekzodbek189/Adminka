@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from ipware import get_client_ip
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
 def sold_ads(request, pk):
     status = Ads.objects.get(id=pk)
     if status.status == 1:
@@ -69,6 +71,8 @@ def Change_user(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([BasicAuthentication, SessionAuthentication])
 def wishlistadd(request, ):
     ads_id = request.POST['ads_id']
     client_ip, is_routable = get_client_ip(request)
