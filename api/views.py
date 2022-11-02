@@ -13,7 +13,6 @@ class InformationView(ReadOnlyModelViewSet):
     serializer_class = InformationSerializer
 
 
-
 class AboutView(ReadOnlyModelViewSet):
     queryset = About.objects.all()
     serializer_class = AboutSerializer
