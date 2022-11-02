@@ -92,3 +92,8 @@ class About(models.Model):
     logo = models.ImageField(upload_to='logo/')
     txt = models.TextField()
     status = models.IntegerField(default=1, choices=((1, "in work"), (2, "deleted")))
+
+
+class Wishlist(models.Model):
+    ip = models.CharField(max_length=255)
+    ads = models.ForeignKey(Ads, on_delete=models.CASCADE)
