@@ -4,5 +4,7 @@ from .views_Sardor import *
 
 
 urlpatterns = [
-    path('ads/', AboutView.as_view)
+    path('ads/', AboutView.as_view({'get': 'list'})),
+    path('category/', CategoryView.as_view({'get': 'list'})),
+    path('subcategory/', SubcategoryView.as_view({'get': 'list'})),
 ]
