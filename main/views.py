@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from .models import *
@@ -33,7 +35,35 @@ def Logout(request):
 def Dashboart(request):
     user = request.user
     if user.status == 1:
-        return render(request, 'dashboard.html', {"user": user})
+        users = 0
+        for i in User.objects.filter(status=2):
+            users += 1
+
+        in_admin = 0
+        for i in Ads.objects.filter(status=1):
+            in_admin += 1
+
+        sale = 0
+        for i in Ads.objects.filter(status=4, date=datetime.datetime.today()):
+            sale += 1
+
+        rejected = 0
+        for i in Ads.objects.filter(status=3):
+            rejected += 1
+
+        accepted = 0
+        for i in Ads.objects.filter(status=2):
+            accepted += 1
+
+        context = {
+            "user": user,
+            "users": users,
+            "in_admin": in_admin,
+            "sale": sale,
+            "rejected": rejected,
+            "accepted": accepted
+        }
+        return render(request, 'dashboard.html', context)
     return redirect("sign_in")
 
 @login_required(login_url='sign_in')
@@ -201,3 +231,34 @@ def District_delete(request, pk):
         district.save()
     return redirect('districts')
 
+
+def handler404(request, *args, **argv):
+    print('asdjhaskjd')
+
+    return render(request, 'pages-404.html')
+
+
+
+
+# Sardor aka
+# elon kora olish
+# categoriya boyicha elon filter
+# categoriya boyicha subcategory ni fiter
+# subcategriya boyicha maxsulot filter
+# search name icontains price range region
+
+# Abdulbosit                            *
+# user ni elonlarini korish uchun       *
+# is top                                *
+# is recomended                         *
+# informasiya uchun get                 *
+# user profile uchun                    *
+# user elon qowa olishi kerak           *
+
+# Bekzok aka
+# user ozini elonlarini olishi uchun    +
+# user elon statusini ozgartirish kerak yani sotilgan bolsa sotildi qilib
+# ro'yhatdan otishi kerak
+# user login
+# reset password
+# wishlist foydalanuvhilar uchun ip boyicha

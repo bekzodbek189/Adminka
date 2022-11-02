@@ -1,10 +1,10 @@
 from django.urls import path
 from .views_Abdulbosit import *
+from api.viewset import *
 
 urlpatterns = [
     path("blank/", Pages_blank, name="blank"),
     path("sing_in/", Pages_sing_in, name="sing_in"),
-    path("themes/", Themes, name="themes"),
     path("create_about/", Create_About, name="create_about"),
     path("create_information/", Create_information, name="create_information"),
     path("sing_up/", Sing_up, name="sing_up"),
@@ -34,4 +34,9 @@ urlpatterns = [
     path("delete_information/<int:pk>/", Delete_information, name="delete_information"),
     path("change_information/<int:pk>/", Change_information, name="change_information"),
     path("change_about/<int:pk>/", Change_about, name="change_about"),
+    path("user_ads/<int:pk>/", Ads_user),
+    path("info/", InformationView.as_view({'get': 'list'})),
+    path("user/", UserView.as_view()),
+    path("add_ads/", Add_ads.as_view()),
+    path("users_ads/", Users_ads),
 ]

@@ -135,6 +135,32 @@
 					  {% else %}
 						<li class="sidebar-item"><a class="sidebar-link" href="{% url 'subcategorys' %}"> <i class="align-middle" data-feather="pie-chart"></i> Subategory</a></li>
 					  {% endif %}
+					  {% if request.path == "/regions/" %}
+						<li class="sidebar-item active">
+							<a href="{% url 'regions' %}" class="sidebar-link ">
+							<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Region</span>
+							</a>
+						</li>
+						{% else %}
+						<li class="sidebar-item">
+							<a href="{% url 'regions' %}" class="sidebar-link ">
+							<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Region</span>
+							</a>
+						</li>
+						{% endif %}
+						{% if request.path == "/districts/" %}
+						<li class="sidebar-item active">
+							<a href="{% url 'districts' %}" class="sidebar-link ">
+							<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">District</span>
+							</a>
+						</li>
+						{% else %}
+						<li class="sidebar-item">
+							<a href="{% url 'districts' %}" class="sidebar-link ">
+							<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Districts</span>
+							</a>
+						</li>
+						{% endif %}
 					</ul>
 
 
@@ -150,32 +176,6 @@
 				<li class="sidebar-item">
 					<a href="{% url 'users' %}" class="sidebar-link ">
 					<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Users</span>
-					</a>
-				</li>
-				{% endif %}
-				{% if request.path == "/regions/" %}
-				<li class="sidebar-item active">
-					<a href="{% url 'regions' %}" class="sidebar-link ">
-					<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Region</span>
-					</a>
-				</li>
-				{% else %}
-				<li class="sidebar-item">
-					<a href="{% url 'regions' %}" class="sidebar-link ">
-					<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Region</span>
-					</a>
-				</li>
-				{% endif %}
-				{% if request.path == "/districts/" %}
-				<li class="sidebar-item active">
-					<a href="{% url 'districts' %}" class="sidebar-link ">
-					<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">District</span>
-					</a>
-				</li>
-				{% else %}
-				<li class="sidebar-item">
-					<a href="{% url 'districts' %}" class="sidebar-link ">
-					<i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Districts</span>
 					</a>
 				</li>
 				{% endif %}
