@@ -18,7 +18,7 @@ class AdsView(generics.ListAPIView):
     queryset = Ads.objects.all()
     safety_regulations = AdsSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ['name', 'category', 'category__subcategory']
+    filterset_fields = ['name', 'category', 'category__subcategory', 'is_top', 'is_recommended']
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'category', 'category__subcategory', 'price', 'region' ]
     pagination_class = StandardResultsSetPagination
