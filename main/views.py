@@ -6,7 +6,6 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 
 
-
 def Sing_in(request):
     if request.method =='POST':
         username = request.POST['username']
@@ -18,11 +17,11 @@ def Sing_in(request):
                 if usr.status == 1:
                     login(request, usr)
                     return redirect('dashboard')
-                return redirect('sign_up')
+                return render(request, "pages-sign-in.html")
             else:
-                return redirect('sign_up')
+                return render(request, "pages-sign-in.html")
         else:
-            return redirect('sign_up')
+            return render(request, "pages-sign-in.html")
     return render(request, "pages-sign-in.html")
 
 @login_required(login_url='sign_in')
@@ -35,33 +34,22 @@ def Logout(request):
 def Dashboart(request):
     user = request.user
     if user.status == 1:
-        users = 0
-        for i in User.objects.filter(status=2):
-            users += 1
-
-        in_admin = 0
-        for i in Ads.objects.filter(status=1):
-            in_admin += 1
-
-        sale = 0
-        for i in Ads.objects.filter(status=4, date=datetime.datetime.today()):
-            sale += 1
-
-        rejected = 0
-        for i in Ads.objects.filter(status=3):
-            rejected += 1
-
-        accepted = 0
-        for i in Ads.objects.filter(status=2):
-            accepted += 1
-
+        users = User.objects.filter(status=2).count()
+        in_admin = Ads.objects.filter(status=1).count()
+        sale = Ads.objects.filter(status=4, date=datetime.datetime.today()).count()
+        rejected = Ads.objects.filter(status=3).count()
+        accepted = Ads.objects.filter(status=2).count()
+        order_prices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for i in Ads.objects.filter(status=4):
+            order_prices[i.date.month - 1] += 1
         context = {
             "user": user,
             "users": users,
             "in_admin": in_admin,
             "sale": sale,
             "rejected": rejected,
-            "accepted": accepted
+            "accepted": accepted,
+            "order_prices": order_prices
         }
         return render(request, 'dashboard.html', context)
     return redirect("sign_in")
