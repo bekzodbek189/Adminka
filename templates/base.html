@@ -72,7 +72,7 @@
 					  {% if request.path == '/blank/' %}
 							<li class="sidebar-item active"><a class="sidebar-link" href="{% url 'blank' %}"> <i class="align-middle" data-feather="pie-chart"></i> In admin</a></li>
 						{% else %}
-							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'blank' %}"> <i class="align-middle" data-feather="pie-chart"></i> In admin</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'blank' %}"><i class="align-middle" data-feather="pie-chart"></i> In admin</a></li>
 						{% endif %}
 						{% if request.path == '/page_accepted/' %}
 							<li class="sidebar-item active"><a class="sidebar-link" href="{% url 'page_accepted' %}"> <i class="align-middle" data-feather="pie-chart"></i> Accepted</a></li>
@@ -162,8 +162,6 @@
 						</li>
 						{% endif %}
 					</ul>
-
-
 				</li>
 
 				{% if request.path == "/users/" %}
@@ -407,14 +405,14 @@
 						fill: true,
 						backgroundColor: "transparent",
 						borderColor: window.theme.primary,
-						data: [2015, 1465, 1487, 1796, 1387, 2123, 2866, 2548, 3902, 4938, 3917, 4927]
+						data: {{ orders }}
 					}, {
 						label: "Orders",
 						fill: true,
 						backgroundColor: "transparent",
 						borderColor: window.theme.tertiary,
 						borderDash: [4, 4],
-						data: [928, 734, 626, 893, 921, 1202, 1396, 1232, 1524, 2102, 1506, 1887]
+						data: {{  }}
 					}]
 				},
 				options: {

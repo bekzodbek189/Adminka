@@ -14,7 +14,7 @@
 										{% csrf_token %}
 										<div class="form-group">
 											<label>Name</label>
-											<input class="form-control form-control-lg" type="text" name="name" placeholder="Enter name">
+											<input class="form-control form-control-lg" type="text" value="{{ region.name }}" name="name" placeholder="Enter name">
 										</div>
 										<select name="district" multiple>
 											{% for i in district %}

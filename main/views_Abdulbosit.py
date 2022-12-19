@@ -271,7 +271,8 @@ def Change_category(request, pk):
         a.save()
         return redirect('page_category')
     context = {
-        "pk": pk
+        "pk": pk,
+        'category': Category.objects.get(id=pk)
     }
     return render(request, "change_category.html", context)
 

@@ -18,11 +18,11 @@ def Sing_in(request):
                 if usr.status == 1:
                     login(request, usr)
                     return redirect('dashboard')
-                return redirect('sign_up')
+                return render(request, "pages-sign-in.html")
             else:
-                return redirect('sign_up')
+                return render(request, "pages-sign-in.html")
         else:
-            return redirect('sign_up')
+            return render(request, "pages-sign-in.html")
     return render(request, "pages-sign-in.html")
 
 @login_required(login_url='sign_in')
@@ -35,25 +35,13 @@ def Logout(request):
 def Dashboart(request):
     user = request.user
     if user.status == 1:
-        users = 0
-        for i in User.objects.filter(status=2):
-            users += 1
-
-        in_admin = 0
-        for i in Ads.objects.filter(status=1):
-            in_admin += 1
-
-        sale = 0
-        for i in Ads.objects.filter(status=4, date=datetime.datetime.today()):
-            sale += 1
-
-        rejected = 0
-        for i in Ads.objects.filter(status=3):
-            rejected += 1
-
-        accepted = 0
-        for i in Ads.objects.filter(status=2):
-            accepted += 1
+        users = User.objects.filter(status=2).count()
+        in_admin = Ads.objects.filter(status=1).count()
+        sale = Ads.objects.filter(status=4, date=datetime.datetime.today()).count()
+        rejected = Ads.objects.filter(status=3).count()
+        accepted = Ads.objects.filter(status=2).count()
+        orders = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        products = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         context = {
             "user": user,
@@ -122,6 +110,7 @@ def Subcategory_change(request, pk):
     sub = Subcategory.objects.get(id=pk)
     con = {
         'pk': pk,
+        'sub': Subcategory.objects.get(id=pk),
         'category': Category.objects.all()
     }
     if request.method == 'POST':
@@ -159,8 +148,12 @@ def Region_add(request):
     }
     if request.method == 'POST':
         name = request.POST['name']
-        district = request.POST['district']
-        Region.objects.create(name=name, district_id=district)
+        district = request.POST.getlist('district')
+        print(district)
+        query = Region.objects.create(name=name)
+        for i in district:
+            d = District.objects.get(id=int(i))
+            query.district.add(d)
         return redirect('regions')
     return render(request, 'region_add.html', con)
 
@@ -170,6 +163,7 @@ def Region_change(request, pk):
     region = Region.objects.get(id=pk)
     con = {
         'pk': pk,
+        'region': Region.objects.get(id=pk),
         'district': District.objects.all()
     }
     if request.method == 'POST':
@@ -214,6 +208,7 @@ def District_change(request, pk):
     district = District.objects.get(id=pk)
     con = {
         'pk': pk,
+        'dist': District.objects.get(id=pk)
     }
     if request.method == 'POST':
         name = request.POST['name']
