@@ -2,23 +2,6 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url="sign_in")
-def Themes(request):
-    user = request.user
-    if user.status == 1:
-        if request.method == "POST":
-            text = request.POST.get("theme")
-            Theme.objects.create(therme=text)
-            return redirect("change")
-        elif request.method == 'GET':
-            text = request.GET.get("theme")
-            a = Theme.objects.last()
-            a.theme = text
-            a.save()
-            return redirect("change")
-        else:
-            return redirect("change")
-    return redirect('pages-404.html')
 
 @login_required(login_url="sign_in")
 def Create_About(request):
@@ -33,15 +16,6 @@ def Create_About(request):
         return render(request, "add_about.html")
     return redirect('pages-404.html')
 
-def Sing_up(requset):
-    """ Register """
-    if requset.method == 'POST':
-        username = requset.POST['username']
-        email = requset.POST['email']
-        password = requset.POST['password']
-        User.objects.create_user(username=username, email=email, password=password)
-        return redirect('sign_in')
-    return render(requset, 'pages-sign-up.html')
 
 @login_required(login_url="sign_in")
 def Pages_blank(request):
@@ -54,9 +28,11 @@ def Pages_blank(request):
         return render(request, "pages-blank.html", context)
     return redirect('pages-404.html')
 
+
 def Pages_sing_in(request):
     """ Go to page Sign in """
     return render(request, "pages-sign-in.html")
+
 
 @login_required(login_url="sign_in")
 def Users(request):
@@ -68,6 +44,7 @@ def Users(request):
         }
         return render(request, "users.html", context)
     return redirect('pages-404.html')
+
 
 @login_required(login_url="sign_in")
 def Search(request):
@@ -81,6 +58,7 @@ def Search(request):
         return render(request, "users.html", context)
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Accepted(request, pk):
     """ Change Product's status """
@@ -91,6 +69,7 @@ def Accepted(request, pk):
         ads.save()
         return redirect('blank')
     return redirect('pages-404.html')
+
 
 @login_required(login_url="sign_in")
 def Rejected(request, pk):
@@ -103,6 +82,7 @@ def Rejected(request, pk):
         return redirect('blank')
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Page_accepted(request):
     """ Go to page which Product's status = accepted """
@@ -114,6 +94,7 @@ def Page_accepted(request):
         return render(request, "pages-blank.html", context)
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Page_rejected(request):
     """ Go to page which Ads's status = rejected """
@@ -124,6 +105,7 @@ def Page_rejected(request):
         }
         return render(request, "pages-blank.html", context)
     return redirect('pages-404.html')
+
 
 @login_required(login_url="sign_in")
 def Is_top(request, pk):
@@ -139,8 +121,10 @@ def Is_top(request, pk):
         return redirect('dashboard')
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Is_recommended(request, pk):
+    """ Make a mark is recommended """
     user = request.user
     if user.status == 1:
         recommended = Ads.objects.get(id=pk)
@@ -152,15 +136,19 @@ def Is_recommended(request, pk):
         return redirect('dashboard')
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Page_is_top(request):
+    """ Page is top """
     user = request.user
     if user.status == 1:
         return render(request, "pages-blank.html", {"ads": Ads.objects.filter(is_top=True)})
     return redirect('pages-404.html')
 
+
 @login_required(login_url="sign_in")
 def Page_is_recommended(request):
+    """ Page is recommended """
     user = request.user
     if user.status == 1:
         context = {
@@ -169,8 +157,10 @@ def Page_is_recommended(request):
         return render(request, "pages-blank.html", context)
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Page_reklama(request):
+    """ Page Advertisement """
     user = request.user
     if user.status == 1:
         context = {
@@ -179,8 +169,10 @@ def Page_reklama(request):
         return render(request, "reklama.html", context)
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Change_Reklama(request, pk):
+    """ Change Advertisement """
     user = request.user
     if user.status == 1:
         reklama = Reklama.objects.get(id=pk)
@@ -196,8 +188,10 @@ def Change_Reklama(request, pk):
         return redirect('reklama')
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Delete_Reklama(request, pk):
+    """ Delete Advertisement """
     user = request.user
     if user.status == 1:
         reklama = Reklama.objects.get(id=pk)
@@ -206,22 +200,28 @@ def Delete_Reklama(request, pk):
         return redirect('reklama')
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Page_Change_Reklama(request, pk):
+    """ Page for change Advertisement """
     user = request.user
     if user.status == 1:
-        return render(request, "change_reklama.html", {"pk": pk})
+        return render(request, "change_reklama.html", {"pk": pk, "reklama": Reklama.objects.get(id=pk)})
     return redirect('sign_in')
+
 
 @login_required(login_url="sign_in")
 def Page_Add_Reklama(request):
+    """ Page for create Advertisement """
     user = request.user
     if user.status == 1:
         return render(request, "add_reklama.html")
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Add_reklama(request):
+    """ Create Advertisement """
     user = request.user
     if user.status == 1:
         img = request.FILES['img']
@@ -232,8 +232,10 @@ def Add_reklama(request):
         return redirect('reklama')
     return redirect('sign_in')
 
+
 @login_required(login_url="sign_in")
 def Page_about(request):
+    """ Page About """
     user = request.user
     if user.status == 1:
         context = {
@@ -242,8 +244,10 @@ def Page_about(request):
         return render(request, 'about.html', context)
     return redirect('sign-in')
 
+
 @login_required(login_url="sign_in")
 def Page_information(request):
+    """ Page Information """
     user = request.user
     if user.status == 1:
         context = {
@@ -252,42 +256,69 @@ def Page_information(request):
         return render(request, 'information.html', context)
     return redirect('pages-404.html')
 
+
+@login_required(login_url="sign_in")
 def Delete_about(request, pk):
-    a = About.objects.get(id=pk)
-    a.status = 2
-    a.save()
-    return redirect('page_about')
-
-def Page_category(request):
-    return render(request, "category.html", {"category": Category.objects.filter(status=1)})
-
-def Change_category(request, pk):
-    if request.method == "POST":
-        name = request.POST['name']
-        img = request.FILES['img']
-        a = Category.objects.get(id=pk)
-        a.name = name
-        a.photo = img
+    """ Delete About """
+    if request.user.status == 1:
+        a = About.objects.get(id=pk)
+        a.status = 2
         a.save()
-        return redirect('page_category')
-    context = {
-        "pk": pk
-    }
-    return render(request, "change_category.html", context)
+        return redirect('page_about')
+    return redirect('pages-404.html')
 
+
+
+@login_required(login_url="sign_in")
+def Page_category(request):
+    """ Page Category """
+    if request.user.status == 1:
+        return render(request, "category.html", {"category": Category.objects.filter(status=1)})
+    return redirect('pages-404.html')
+
+
+@login_required(login_url="sign_in")
+def Change_category(request, pk):
+    """ Change Category """
+    if request.user.status == 1:
+        if request.method == "POST":
+            name = request.POST['name']
+            img = request.FILES['img']
+            a = Category.objects.get(id=pk)
+            a.name = name
+            a.photo = img
+            a.save()
+            return redirect('page_category')
+        context = {
+            "pk": pk
+        }
+        return render(request, "change_category.html", context)
+    return redirect('pages-404.html')
+
+
+@login_required(login_url="sign_in")
 def Create_category(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        img = request.FILES['img']
-        Category.objects.create(name=name, photo=img)
+    """ Create Category """
+    if request.user.status == 1:
+        if request.method == "POST":
+            name = request.POST['name']
+            img = request.FILES['img']
+            Category.objects.create(name=name, photo=img)
+            return redirect('page_category')
         return redirect('page_category')
-    return redirect('page_category')
+    return redirect('pages-404.html')
 
+
+@login_required(login_url="sign_in")
 def Delete_category(request, pk):
-    category = Category.objects.get(id=pk)
-    category.status = 2
-    category.save()
-    return redirect('page_category')
+    """ Delete Category """
+    if request.user.status == 1:
+        category = Category.objects.get(id=pk)
+        category.status = 2
+        category.save()
+        return redirect('page_category')
+    return redirect('pages-404.html')
+
 
 @login_required(login_url="sign_in")
 def Create_information(request):
@@ -305,36 +336,51 @@ def Create_information(request):
         return render(request, "ad_information.html")
     return redirect('pages-404.html')
 
+
+@login_required(login_url="sign_in")
 def Change_information(request, pk):
-    if request.method == "POST":
-        company_name = request.POST["company_name"]
-        logo = request.FILES["logo"]
-        description = request.POST["description"]
-        googleplay = request.POST["googleplay"]
-        appstore = request.POST["appstore"]
+    """ Change Information """
+    if request.user.status == 1:
+        if request.method == "POST":
+            company_name = request.POST["company_name"]
+            logo = request.FILES["logo"]
+            description = request.POST["description"]
+            googleplay = request.POST["googleplay"]
+            appstore = request.POST["appstore"]
+            info = Information.objects.get(id=pk)
+            info.company_name = company_name
+            info.logo = logo
+            info.description = description
+            info.googleplay = googleplay
+            info.appstore = appstore
+            info.save()
+            return redirect('information')
+        return render(request, "change_information.html", {"pk": pk, "info": Information.objects.get(id=pk)})
+    return redirect('pages-404.html')
+
+
+@login_required(login_url="sign_in")
+def Delete_information(request, pk):
+    """ Delete Information """
+    if request.user.status == 1:
         info = Information.objects.get(id=pk)
-        info.company_name = company_name
-        info.logo = logo
-        info.description = description
-        info.googleplay = googleplay
-        info.appstore = appstore
+        info.status = 2
         info.save()
         return redirect('information')
-    return render(request, "change_information.html", {"pk": pk})
+    return redirect('pages-404.html')
 
-def Delete_information(request, pk):
-    info = Information.objects.get(id=pk)
-    info.status = 2
-    info.save()
-    return redirect('information')
 
+@login_required(login_url="sign_in")
 def Change_about(request, pk):
-    if request.method == "POST":
-        text = request.POST["text"]
-        logo = request.FILES["logo"]
-        about = About.objects.get(id=pk)
-        about.txt = text
-        about.logo = logo
-        about.save()
-        return redirect("page_about")
-    return render(request, "change_about.html", {"pk": pk})
+    """ Change About """
+    if request.user.status == 1:
+        if request.method == "POST":
+            text = request.POST["text"]
+            logo = request.FILES["logo"]
+            about = About.objects.get(id=pk)
+            about.txt = text
+            about.logo = logo
+            about.save()
+            return redirect("page_about")
+        return render(request, "change_about.html", {"pk": pk, "about": About.objects.filter(id=pk)})
+    return redirect("pages-404.html")

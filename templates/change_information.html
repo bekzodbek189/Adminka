@@ -9,11 +9,11 @@
           {% csrf_token %}
           <div class="form-group">
             <label>company</label>
-            <input class="form-control form-control-lg" type="text" value="" name="company_name" placeholder="Enter company_name">
+            <input class="form-control form-control-lg" type="text" value="{{ info.company_name }}" name="company_name" placeholder="Enter company_name">
           </div>
           <div class="form-group">
             <label>description</label>
-            <input class="form-control form-control-lg" type="text" name="description" placeholder="Enter description">
+            <input class="form-control form-control-lg" type="text" name="description" value="{{ info.description }}" placeholder="Enter description">
           </div>
           <div class="form-group">
             <label>Logo</label>
@@ -21,11 +21,11 @@
           </div>
           <div class="form-group">
             <label>Google play</label>
-            <input class="form-control form-control-lg" type="url" name="googleplay" placeholder="Enter google play url">
+            <input class="form-control form-control-lg" type="url" value="{{ info.googleplay }}" name="googleplay" placeholder="Enter google play url">
           </div>
           <div class="form-group">
             <label>AppStore</label>
-            <input class="form-control form-control-lg" type="url" name="appstore" placeholder="Enter appstore url">
+            <input class="form-control form-control-lg" type="url" name="appstore" value="{{ appstore }}" placeholder="Enter appstore url">
           </div>
           <div class="text-center mt-3">
             <button type="submit" class="btn btn-lg btn-primary">Change</button>

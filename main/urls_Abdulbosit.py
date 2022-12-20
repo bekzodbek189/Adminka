@@ -6,7 +6,6 @@ urlpatterns = [
     path("sing_in/", Pages_sing_in, name="sing_in"),
     path("create_about/", Create_About, name="create_about"),
     path("create_information/", Create_information, name="create_information"),
-    path("sing_up/", Sing_up, name="sing_up"),
     path("users/", Users, name="users"),
     path("search/", Search, name="search"),
     path("accepted/<int:pk>/", Accepted, name="accepted"),

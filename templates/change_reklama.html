@@ -9,19 +9,19 @@
           {% csrf_token %}
           <div class="form-group">
             <label>Title</label>
-            <input class="form-control form-control-lg" type="text" name="title" placeholder="Enter title">
+            <input class="form-control form-control-lg" type="text" name="title" value="{{ reklama.title }}" required>
           </div>
           <div class="form-group">
             <label>Text</label>
-            <input class="form-control form-control-lg" type="text" name="text" placeholder="Enter Text">
+            <textarea name="text" class="form-control form-control-lg" cols="30" rows="5" required>{{ reklama.text }}</textarea>
           </div>
           <div class="form-group">
             <label>Img</label>
-            <input class="form-control form-control-lg" type="file" name="img">
+            <input class="form-control-file form-control-lg" type="file" value="{{ reklama.img.url }}" name="img" required>
           </div>
           <div class="form-group">
             <label>Link</label>
-            <input class="form-control form-control-lg" type="url" name="link" placeholder="Enter link">
+            <input class="form-control form-control-lg" type="url" name="link" value="{{ reklama.link }}" required>
           </div>
           <div class="text-center mt-3">
             <button type="submit" class="btn btn-lg btn-primary">Change</button>

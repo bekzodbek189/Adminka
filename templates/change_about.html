@@ -9,7 +9,7 @@
           {% csrf_token %}
           <div class="form-group">
             <label>Text</label>
-            <input class="form-control form-control-lg" type="text" name="text" placeholder="Enter text">
+            <textarea name="text" class="form-control form-control-lg" cols="30" rows="5" required>{{ about.txt }}</textarea>
           </div>
           <div class="form-group">
             <label>Photo</label>
