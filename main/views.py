@@ -88,7 +88,7 @@ def Profile(request):
 @login_required(login_url='sign-in')
 def Subcategory_add(request):
     con = {
-        'category': Category.objects.all()
+        'category': Category.objects.filter(status=1)
     }
     if request.method == 'POST':
         name = request.POST['name']
@@ -110,7 +110,8 @@ def Subcategory_change(request, pk):
     sub = Subcategory.objects.get(id=pk)
     con = {
         'pk': pk,
-        'category': Category.objects.all()
+        'sub': Subcategory.Objects.get(id=pk),
+        'category': Category.objects.filter(status=1)
     }
     if request.method == 'POST':
         name = request.POST['name']
@@ -143,7 +144,7 @@ def Regions(request):
 @login_required(login_url='sign-in')
 def Region_add(request):
     con = {
-        'district': District.objects.all()
+        'district': District.objects.filter(status=1)
     }
     if request.method == 'POST':
         name = request.POST['name']
@@ -158,7 +159,7 @@ def Region_change(request, pk):
     region = Region.objects.get(id=pk)
     con = {
         'pk': pk,
-        'district': District.objects.all()
+        'district': District.objects.filter(status=1)
     }
     if request.method == 'POST':
         name = request.POST['name']
