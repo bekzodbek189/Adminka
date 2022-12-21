@@ -39,9 +39,15 @@ def Dashboart(request):
         sale = Ads.objects.filter(status=4, date=datetime.datetime.today()).count()
         rejected = Ads.objects.filter(status=3).count()
         accepted = Ads.objects.filter(status=2).count()
+<<<<<<< HEAD
         order_prices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         for i in Ads.objects.filter(status=4):
             order_prices[i.date.month - 1] += 1
+=======
+        orders = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        products = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+>>>>>>> ac4f7d741ed7b447d66eb733b0c9036b5f007cc6
         context = {
             "user": user,
             "users": users,
@@ -110,8 +116,13 @@ def Subcategory_change(request, pk):
     sub = Subcategory.objects.get(id=pk)
     con = {
         'pk': pk,
+<<<<<<< HEAD
         'sub': Subcategory.Objects.get(id=pk),
         'category': Category.objects.filter(status=1)
+=======
+        'sub': Subcategory.objects.get(id=pk),
+        'category': Category.objects.all()
+>>>>>>> ac4f7d741ed7b447d66eb733b0c9036b5f007cc6
     }
     if request.method == 'POST':
         name = request.POST['name']
@@ -148,8 +159,12 @@ def Region_add(request):
     }
     if request.method == 'POST':
         name = request.POST['name']
-        district = request.POST['district']
-        Region.objects.create(name=name, district_id=district)
+        district = request.POST.getlist('district')
+        print(district)
+        query = Region.objects.create(name=name)
+        for i in district:
+            d = District.objects.get(id=int(i))
+            query.district.add(d)
         return redirect('regions')
     return render(request, 'region_add.html', con)
 
@@ -159,7 +174,12 @@ def Region_change(request, pk):
     region = Region.objects.get(id=pk)
     con = {
         'pk': pk,
+<<<<<<< HEAD
         'district': District.objects.filter(status=1)
+=======
+        'region': Region.objects.get(id=pk),
+        'district': District.objects.all()
+>>>>>>> ac4f7d741ed7b447d66eb733b0c9036b5f007cc6
     }
     if request.method == 'POST':
         name = request.POST['name']
@@ -203,6 +223,7 @@ def District_change(request, pk):
     district = District.objects.get(id=pk)
     con = {
         'pk': pk,
+        'dist': District.objects.get(id=pk)
     }
     if request.method == 'POST':
         name = request.POST['name']

@@ -14,13 +14,17 @@
 										{% csrf_token %}
 										<div class="form-group">
 											<label>Name</label>
-											<input class="form-control form-control-lg" type="text" name="name" placeholder="Enter name">
+											<input class="form-control form-control-lg" type="text" value="{{ sub.name }}" name="name">
 										</div>
-										<select name="category">
+										<div class="form-group">
+											<label>Category</label>
+											<br>
+										<select name="category" class="form-control">
 											{% for i in category %}
 												<option value="{{ i.id }}">{{ i.name }}</option>
 											{% endfor %}
 										</select>
+										</div>
 										<div class="text-center mt-3">
 											<button type="submit" class="btn btn-lg btn-primary">change</button>
 										</div>

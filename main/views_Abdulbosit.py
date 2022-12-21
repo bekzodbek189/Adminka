@@ -264,8 +264,17 @@ def Delete_about(request, pk):
         a = About.objects.get(id=pk)
         a.status = 2
         a.save()
+<<<<<<< HEAD
         return redirect('page_about')
     return redirect('pages-404.html')
+=======
+        return redirect('page_category')
+    context = {
+        "pk": pk,
+        'category': Category.objects.get(id=pk)
+    }
+    return render(request, "change_category.html", context)
+>>>>>>> ac4f7d741ed7b447d66eb733b0c9036b5f007cc6
 
 
 
